@@ -173,7 +173,7 @@ initialize_and_push() {
     sudo git add .
     sudo git commit -am "Update packages"
     sudo git pull
-    sudo git push "https://x-access-token:${GITHUB_TOKEN}@github.com/StratOS-Linux/StratOS-repo" --force
+    sudo git push "https://x-access-token:${GITHUB_TOKEN}@github.com/slipstream8125/StratOS-repo" --force
 }
 
 # Main function
