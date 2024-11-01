@@ -115,6 +115,16 @@ build_and_package() {
         clone_and_build_if_needed "$i" "$dir"
     done
 
+	
+	local aursync_packages=(
+		"swayfx"
+		"pyprland"
+		"sway-nvidia"
+)
+	for i in "${aursync_packages[@]}"; do
+		 aur sync --repo StratOS-repo --root x86_64 "$i"
+	done	
+
     # # sudo pacman -U $dir/x86_64/ckbcomp-1.227-1-any.pkg.tar.zst --noconfirm
     # sudo pacman -U $dir/x86_64/repoctl-0.22.2-1-x86_64.pkg.tar.zst --noconfirm
     cd "$dir"/PKGBUILDS/rockers/
