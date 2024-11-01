@@ -86,7 +86,7 @@ build_and_package() {
     local packages=(
         "albert" 
         "aura-bin"
-          # "aurutils"
+          "aurutils"
         "bibata-cursor-theme-bin"
           # "brave-bin"
           # #"eww"    
@@ -120,7 +120,7 @@ build_and_package() {
 		"swayfx"
 		"pyprland"
 		"sway-nvidia"
-)
+	)
 	for i in "${aursync_packages[@]}"; do
 		 aur sync --repo StratOS-repo --root x86_64 "$i"
 	done	
