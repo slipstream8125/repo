@@ -123,7 +123,7 @@ build_and_package() {
 		"sway-nvidia"
 	)
 	for i in "${aursync_packages[@]}"; do
-		 aur sync --repo StratOS-repo --root x86_64 "$i"
+		 sudo -u builder aur sync --repo StratOS-repo --root x86_64 "$i"
 	done	
 
     # # sudo pacman -U $dir/x86_64/ckbcomp-1.227-1-any.pkg.tar.zst --noconfirm
