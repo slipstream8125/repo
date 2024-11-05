@@ -86,7 +86,7 @@ build_and_package() {
     local packages=(
         "albert" 
         "aura-bin"
-          "aurutils"
+        "aurutils"
         "bibata-cursor-theme-bin"
           # "brave-bin"
           # #"eww"    
@@ -115,6 +115,7 @@ build_and_package() {
         clone_and_build_if_needed "$i" "$dir"
     done
 
+	sudo pacman -U "$dir"/x86_64/aurutils-20.3-1-any.pkg.tar.zst --noconfirm
 	
 	local aursync_packages=(
 		"swayfx"
