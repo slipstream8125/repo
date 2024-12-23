@@ -94,6 +94,7 @@ build_and_package() {
           # "gruvbox-plus-icon-theme-git" 
           # "libadwaita-without-adwaita-git" 
           # "mkinitcpio-openswap" 
+	"mu" # TODO find a way to not pull in Emacs as a dependency
           # "nwg-clipman"
         "nwg-dock-hyprland-bin" 
           # "octopi"

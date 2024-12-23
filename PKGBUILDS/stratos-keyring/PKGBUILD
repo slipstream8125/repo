@@ -1,11 +1,11 @@
 # Maintainer: ZeStig <o0vckutt@duck.com>
 
 pkgname=stratos-keyring
-pkgver=20240819
+pkgver=20241223
 pkgrel=1
 pkgdesc="StratOS keyring"
 arch=(any)
-url="https://stratos-linux.github.io"
+url="https://stratos-linux.github.org"
 license=('GPL-3.0-or-later')
 install=$pkgname.install
 source=("stratos.gpg"
