@@ -1,0 +1,48 @@
+# Maintainer: ZeStig <zestig@duck.com>
+pkgname=stratos-fish-config
+pkgver=1.0
+pkgrel=0
+pkgdesc="Fish shell configuration for StratOS"
+arch=('x86_64')
+url="https://github.com/StratOS-Linux/StratOS-fish-config"
+license=('GPL')
+depends=('bash' 'fish') 
+
+build() {
+    git clone $url
+    echo $srcdir
+}
+
+package() {
+    mkdir -p "$pkgdir/etc/skel/.config/fish"
+
+    emacs_config_paths=( "$HOME/.config/fish" )
+
+    config_exists=false
+    for config in "${emacs_config_paths[@]}"; do
+	if [ -e "$config" ]; then
+	    config_exists=true
+	    break
+	fi
+    done  
+
+    if [ "$config_exists" = true ]; then
+	cp -r "$srcdir/StratOS-fish-config"/* "$pkgdir/etc/skel/.config/fish/"
+	echo "The configuration files have been installed in /etc/skel/.config/fish."
+	echo "You may copy the files manually if you wish to overwrite your current fish configuration."
+    else
+	read -p "No fish configuration files found. Do you want to install the StratOS fish configuration in .config/fish? (y/n): " user_input
+	if [[ "$user_input" =~ ^[Yy]$ ]]; then
+	    mkdir -p "$HOME/.config/fish"
+	    cp -r "$srcdir/StratOS-fish-config"/* "$HOME/.config/fish/"
+	else
+	    cp -r "$srcdir/StratOS-fish-config"/* "$pkgdir/etc/skel/.config/fish/"
+	    echo "The configuration files have been installed in /etc/skel/.config/fish."
+	    echo "You may copy the files manually if you wish to overwrite your current fish configuration."
+	fi
+    fi
+}
+
+pkgpostrm() {
+  rm -rf "/etc/skel/.config/fish"
+}

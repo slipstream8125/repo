@@ -1,0 +1,56 @@
+# Maintainer: ZeStig <zestig@duck.com>
+pkgname=stratos-waybar-config
+pkgver=1.0
+pkgrel=0
+pkgdesc="StratOS Waybar config"
+arch=('x86_64')
+url="https://github.com/StratOS-Linux/StratOS-waybar-config"
+license=('GPL')
+depends=('bash') 
+
+build() {
+    # Clone the repo directly into the source directory
+    git clone "$url" "$srcdir/StratOS-waybar-config"
+    echo "$srcdir"
+}
+
+package() {
+    # Define the target installation directory
+    local config_dir="$pkgdir/etc/skel/.config/waybar"
+    
+    # Create the necessary directories
+    mkdir -p "$config_dir"
+
+    # Define the path of the Waybar config in the user's home
+    local waybar_config_path="$HOME/.config/waybar"
+
+    # Check if a Waybar configuration already exists in the home directory
+    if [ -e "$waybar_config_path" ]; then
+        # If the config exists in the home directory, ask if user wants to overwrite it
+        read -p "Waybar configuration already exists in your home directory. Do you want to overwrite it? (y/n): " user_input
+        if [[ "$user_input" =~ ^[Yy]$ ]]; then
+            cp -r "$srcdir/StratOS-waybar-config"/* "$waybar_config_path/"
+            echo "Your Waybar configuration has been overwritten in $waybar_config_path."
+        else
+            echo "The Waybar configuration was not overwritten."
+        fi
+    else
+        # If no Waybar configuration exists in the home directory, copy to the home directory
+        read -p "No Waybar configuration found in your home directory. Do you want to install the configuration there? (y/n): " user_input
+        if [[ "$user_input" =~ ^[Yy]$ ]]; then
+            mkdir -p "$waybar_config_path"
+            cp -r "$srcdir/StratOS-waybar-config"/* "$waybar_config_path/"
+            echo "The Waybar configuration has been installed in your home directory."
+        fi
+    fi
+
+    # Also copy the configuration to /etc/skel/.config/waybar for new users
+    cp -r "$srcdir/StratOS-waybar-config"/* "$config_dir/"
+    echo "The configuration files have been installed in /etc/skel/.config/waybar."
+    echo "New users will get the default Waybar configuration in their home directories."
+}
+
+pkgpostrm() {
+    # Clean up the configuration directory in /etc/skel when the package is removed
+    rm -rf "/etc/skel/.config/waybar"
+}

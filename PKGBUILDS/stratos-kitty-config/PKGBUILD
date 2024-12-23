@@ -1,0 +1,48 @@
+# Maintainer: ZeStig <zestig@duck.com>
+pkgname=stratos-kitty-config
+pkgver=1.0
+pkgrel=0
+pkgdesc="Kitty terminal emulator configuration for StratOS"
+arch=('x86_64')
+url="https://github.com/StratOS-Linux/StratOS-kitty-config"
+license=('GPL')
+depends=('bash' 'kitty') 
+
+build() {
+    git clone $url
+    echo $srcdir
+}
+
+package() {
+    mkdir -p "$pkgdir/etc/skel/.config/kitty"
+
+    emacs_config_paths=( "$HOME/.config/kitty" )
+
+    config_exists=false
+    for config in "${emacs_config_paths[@]}"; do
+	if [ -e "$config" ]; then
+	    config_exists=true
+	    break
+	fi
+    done  
+
+    if [ "$config_exists" = true ]; then
+	cp -r "$srcdir/StratOS-kitty-config"/* "$pkgdir/etc/skel/.config/kitty/"
+	echo "The configuration files have been installed in /etc/skel/.config/kitty."
+	echo "You may copy the files manually if you wish to overwrite your current kitty configuration."
+    else
+	read -p "No fish configuration files found. Do you want to install the StratOS kitty configuration in .config/kitty? (y/n): " user_input
+	if [[ "$user_input" =~ ^[Yy]$ ]]; then
+	    mkdir -p "$HOME/.config/kitty"
+	    cp -r "$srcdir/StratOS-kitty-config"/* "$HOME/.config/kitty/"
+	else
+	    cp -r "$srcdir/StratOS-kitty-config"/* "$pkgdir/etc/skel/.config/kitty/"
+	    echo "The configuration files have been installed in /etc/skel/.config/kitty."
+	    echo "You may copy the files manually if you wish to overwrite your current kitty configuration."
+	fi
+    fi
+}
+
+pkgpostrm() {
+  rm -rf "/etc/skel/.config/kitty"
+}
