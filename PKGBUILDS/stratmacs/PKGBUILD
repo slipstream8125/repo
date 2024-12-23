@@ -15,7 +15,7 @@ JIT="NO"          # Disable native just-in-time compilation with libgccjit avail
 
 ################################################################################
 pkgname=stratmacs
-pkgver=29.3
+pkgver=29.4
 _pkgver_major=${pkgver/.*}
 pkgrel=3
 pkgdesc="The extensible, customizable, self-documenting real-time display editor (Lucid toolkit version with native compilation)"
@@ -28,6 +28,10 @@ depends=(
     ttf-jetbrains-mono-nerd
     git
     cmake
+    poppler-glib
+    poppler
+    poppler-qt6
+    gcc
 )
 optdepends=(
   'lldb: For debugging with LLDB instead of GDB'

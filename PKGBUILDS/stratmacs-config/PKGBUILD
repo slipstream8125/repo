@@ -1,0 +1,48 @@
+# Maintainer: ZeStig <zestig@duck.com>
+pkgname=stratmacs-config
+pkgver=1.0
+pkgrel=0
+pkgdesc="Emacs distribution bundled with StratOS"
+arch=('x86_64')
+url="https://github.com/StratOS-Linux/Stratmacs"
+license=('GPL')
+depends=('bash') 
+
+build() {
+    git clone $url
+    echo $srcdir
+}
+
+package() {
+    mkdir -p "$pkgdir/etc/skel/.config/emacs"
+
+    emacs_config_paths=( "$HOME/.emacs" "$HOME/.emacs.d" "$HOME/.config/emacs" )
+
+    config_exists=false
+    for config in "${emacs_config_paths[@]}"; do
+	if [ -e "$config" ]; then
+	    config_exists=true
+	    break
+	fi
+    done  
+
+    if [ "$config_exists" = true ]; then
+	cp -r "$srcdir/Stratmacs"/* "$pkgdir/etc/skel/.config/emacs/"
+	echo "The configuration files have been installed in /etc/skel/.config/emacs."
+	echo "You may copy the files manually if you wish to overwrite your current Emacs configuration."
+    else
+	read -p "No Emacs configuration files found. Do you want to install Stratmacs configuration in .config/emacs? (y/n): " user_input
+	if [[ "$user_input" =~ ^[Yy]$ ]]; then
+	    mkdir -p "$HOME/.config/emacs"
+	    cp -r "$srcdir/Stratmacs"/* "$HOME/.config/emacs/"
+	else
+	    cp -r "$srcdir/Stratmacs"/* "$pkgdir/etc/skel/.config/emacs/"
+	    echo "The configuration files have been installed in /etc/skel/.config/emacs."
+	    echo "You may copy the files manually if you wish to overwrite your current Emacs configuration."
+	fi
+    fi
+}
+
+pkgpostrm() {
+  rm -rf "/etc/skel/.config/emacs"
+}
