@@ -173,7 +173,15 @@ build_and_package() {
     # cp *.pkg.tar.zst "$dir"/x86_64/
     # cd "$dir"
 
-    packages=("stratos-bin" "stratmacs-config" "stratos-calamares-config" "stratos-kitty-config" "stratos-fish-config" "stratos-waybar-config" "stratos-starship-config")
+    packages=(
+        "stratos-bin" 
+        "stratmacs-config" 
+        "stratos-calamares-config" 
+        "stratos-kitty-config" 
+        "stratos-fish-config" 
+        "stratos-waybar-config" 
+        "stratos-starship-config"
+        )
     for package in "${packages[@]}"; do
         mkdir -p /tmp/$package
         cp "$dir"/PKGBUILDS/$package/PKGBUILD /tmp/$package
@@ -190,6 +198,7 @@ build_and_package() {
 
 # Initialize and push to GitHub
 initialize_and_push() {
+    exit
     # export URL="$(git config --get remote.origin.url | sed -E 's|.+[:/]([^:/]+)/([^/.]+)(\.git)?|\1/\2|')"
     cd "$dir"
     git config --global --add safe.directory /workspace # unnecessary
