@@ -189,8 +189,8 @@ build_and_package() {
         sudo chmod -R 777 /tmp/$package
         sudo -u builder makepkg -cfs --noconfirm
         rm -f **debug**.pkg.tar.zst
-        cp *.pkg.tar.zst "$dir"/x86_64/
-        cd "$dir"
+        cp *.pkg.tar.zst $dir/x86_64/
+        cd $dir
         rm -rf /tmp/$package
     done
 
@@ -198,8 +198,6 @@ build_and_package() {
 
 # Initialize and push to GitHub
 initialize_and_push() {
-    exit
-    # export URL="$(git config --get remote.origin.url | sed -E 's|.+[:/]([^:/]+)/([^/.]+)(\.git)?|\1/\2|')"
     cd "$dir"
     git config --global --add safe.directory /workspace # unnecessary
     rm x86_64/stratos.{db,files}* -rf
