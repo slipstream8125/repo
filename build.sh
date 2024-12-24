@@ -86,25 +86,25 @@ build_and_package() {
     local packages=(
         "albert" 
         "aura-bin"
-          # "aurutils"
+        # "aurutils"
         "bibata-cursor-theme-bin"
-          # "brave-bin"
-          # #"eww"    
-          # "google-chrome"
-          # "gruvbox-plus-icon-theme-git" 
-          # "libadwaita-without-adwaita-git" 
-          # "mkinitcpio-openswap" 
+        # "brave-bin"
+        # #"eww"    
+        # "google-chrome"
+        # "gruvbox-plus-icon-theme-git" 
+        # "libadwaita-without-adwaita-git" 
+        # "mkinitcpio-openswap" 
 	"mu" # TODO find a way to not pull in Emacs as a dependency
-          # "nwg-clipman"
+        # "nwg-clipman"
         "nwg-dock-hyprland-bin" 
-          # "octopi"
+        # "octopi"
         "oh-my-zsh-git"
         # "pamac-all"
         "pandoc-bin" 
         "python-clickgen"
-          # "pyprland"
-          # #"repoctl"
-          # "rua"
+        # "pyprland"
+        # #"repoctl"
+        # "rua"
         "swayfx"
         # "sway-nvidia"
         "swayosd-git"
@@ -172,6 +172,20 @@ build_and_package() {
     rm -f **debug**.pkg.tar.zst
     cp *.pkg.tar.zst "$dir"/x86_64/
     cd "$dir"
+
+    packages=("stratos-bin" "stratmacs-config" "stratos-calamares-config" "stratos-kitty-config" "stratos-fish-config" "stratos-waybar-config" "stratos-starship-config")
+    for package in "${packages[@]}"; do
+	mkdir -p /tmp/$package
+	cp "$dir"/PKGBUILDS/$package/PKGBUILD /tmp/$package
+	cd /tmp/$package
+	sudo chmod -R 777 /tmp/$package
+	sudo -u builder makepkg -cfs --noconfirm
+	rm -f **debug**.pkg.tar.zst
+	cp *.pkg.tar.zst "$dir"/x86_64/
+	cd "$dir"
+	rm -rf /tmp/$package
+    done
+
 }
 
 # Initialize and push to GitHub
