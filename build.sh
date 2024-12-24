@@ -55,7 +55,7 @@ clone_and_build_if_needed() {
     aur_srcinfo=$(curl -s "https://aur.archlinux.org/cgit/aur.git/plain/.SRCINFO?h=$package")
     aur_version=$(echo "$aur_srcinfo" | grep -Po '(?<=pkgver = )[\d\w.]+')
     aur_pkgrel=$(echo "$aur_srcinfo" | grep -Po '(?<=pkgrel = )[\d\w.]+')
-    aur_arch=$(echo "$aur_srcinfo" | grep -Po '(?<=arch = )[\w\d]+')
+    aur_arch="x86_64"
 
     echo "Checking $package: local version = $local_version, AUR version = $aur_version"
 
@@ -127,13 +127,13 @@ build_and_package() {
     # mv *.pkg.tar.zst "$dir"/x86_64/
     # cd "$dir"/
 
-    mkdir -p /tmp/litefm && chmod -R 777 /tmp/litefm
-    cp "$dir"/PKGBUILDS/litefm/PKGBUILD /tmp/litefm
-    cd /tmp/litefm
-    rm -f "$dir"/x86_64/**litefm**.pkg.tar.zst
-    sudo -u builder makepkg -cfs --noconfirm # --sign
-    mv *.pkg.tar.zst "$dir"/x86_64/
-    cd "$dir"/
+    # mkdir -p /tmp/litefm && chmod -R 777 /tmp/litefm
+    # cp "$dir"/PKGBUILDS/litefm/PKGBUILD /tmp/litefm
+    # cd /tmp/litefm
+    # rm -f "$dir"/x86_64/**litefm**.pkg.tar.zst
+    # sudo -u builder makepkg -cfs --noconfirm # --sign
+    # mv *.pkg.tar.zst "$dir"/x86_64/
+    # cd "$dir"/
 
     mkdir -p /tmp/ckbcomp
     cp "$dir"/PKGBUILDS/ckbcomp/PKGBUILD /tmp/ckbcomp
