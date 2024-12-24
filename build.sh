@@ -173,7 +173,7 @@ build_and_package() {
     # cp *.pkg.tar.zst "$dir"/x86_64/
     # cd "$dir"
 
-    packages=("stratos-bin" ) # "stratmacs-config" "stratos-calamares-config" "stratos-kitty-config" "stratos-fish-config" "stratos-waybar-config" "stratos-starship-config")
+    packages=("stratos-bin" "stratmacs-config" "stratos-calamares-config" "stratos-kitty-config" "stratos-fish-config" "stratos-waybar-config" "stratos-starship-config")
     for package in "${packages[@]}"; do
         mkdir -p /tmp/$package
         cp "$dir"/PKGBUILDS/$package/PKGBUILD /tmp/$package

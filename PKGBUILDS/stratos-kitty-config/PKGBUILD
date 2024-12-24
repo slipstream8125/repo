@@ -14,7 +14,7 @@ build() {
 }
 
 package() {
-    mkdir -p "$pkgdir/etc/skel/.config/kitty"
+    mkdir -p $pkgdir/etc/skel/.config/kitty
 
     emacs_config_paths=( "$HOME/.config/kitty" )
 
@@ -34,9 +34,9 @@ package() {
 	read -p "No fish configuration files found. Do you want to install the StratOS kitty configuration in .config/kitty? (y/n): " user_input
 	if [[ "$user_input" =~ ^[Yy]$ ]]; then
 	    mkdir -p "$HOME/.config/kitty"
-	    cp -r "$srcdir/StratOS-kitty-config"/* "$HOME/.config/kitty/"
+	    cp -r $srcdir/StratOS-kitty-config/* $HOME/.config/kitty/
 	else
-	    cp -r "$srcdir/StratOS-kitty-config"/* "$pkgdir/etc/skel/.config/kitty/"
+	    cp -r $srcdir/StratOS-kitty-config/* $pkgdir/etc/skel/.config/kitty/
 	    echo "The configuration files have been installed in /etc/skel/.config/kitty."
 	    echo "You may copy the files manually if you wish to overwrite your current kitty configuration."
 	fi
@@ -44,5 +44,5 @@ package() {
 }
 
 pkgpostrm() {
-  rm -rf "/etc/skel/.config/kitty"
+  rm -rf /etc/skel/.config/kitty
 }

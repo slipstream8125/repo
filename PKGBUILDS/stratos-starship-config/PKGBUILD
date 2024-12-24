@@ -14,7 +14,7 @@ build() {
 }
 
 package() {
-    mkdir -p "$pkgdir/etc/skel/.config/fish"
+    mkdir -p $pkgdir/etc/skel/.config/fish
 
     emacs_config_paths=( "$HOME/.config/fish" )
 
@@ -34,11 +34,11 @@ package() {
     else
 	read -p "No fish configuration files found. Do you want to install the StratOS fish configuration in .config/fish? (y/n): " user_input
 	if [[ "$user_input" =~ ^[Yy]$ ]]; then
-	    mkdir -p "$HOME/.config/fish"
-	    cp -r "$srcdir/StratOS-fish-config"/* "$HOME/.config/fish/"
+	    mkdir -p $HOME/.config/fish
+	    cp -r $srcdir/StratOS-fish-config/* $HOME/.config/fish/
 	else
-            cp -r "$srcdir/StratOS-starship-config" "$pkgdir/etc/skel/.config/starship/"
-            cp "$srcdir/StratOS-starship-config/starship.toml" "$pkgdir/etc/skel/.config/starship.toml"
+            cp -r $srcdir/StratOS-starship-config $pkgdir/etc/skel/.config/starship/
+            cp $srcdir/StratOS-starship-config/starship.toml $pkgdir/etc/skel/.config/starship.toml"
             echo "The configuration files have been installed in /etc/skel/.config/starship."
             echo "You may copy the files manually if you wish to overwrite your current starship configuration."
 	fi
@@ -46,5 +46,5 @@ package() {
 }
 
 pkgpostrm() {
-  rm -rf "/etc/skel/.config/starship*"
+  rm -rf /etc/skel/.config/starship*
 }

@@ -27,16 +27,16 @@ package() {
     done  
 
     if [ "$config_exists" = true ]; then
-	cp -r "$srcdir/StratOS-fish-config"/* "$pkgdir/etc/skel/.config/fish/"
+	cp -r $srcdir/StratOS-fish-config/* $pkgdir/etc/skel/.config/fish/
 	echo "The configuration files have been installed in /etc/skel/.config/fish."
 	echo "You may copy the files manually if you wish to overwrite your current fish configuration."
     else
 	read -p "No fish configuration files found. Do you want to install the StratOS fish configuration in .config/fish? (y/n): " user_input
 	if [[ "$user_input" =~ ^[Yy]$ ]]; then
-	    mkdir -p "$HOME/.config/fish"
-	    cp -r "$srcdir/StratOS-fish-config"/* "$HOME/.config/fish/"
+	    mkdir -p $HOME/.config/fish
+	    cp -r $srcdir/StratOS-fish-config/* $HOME/.config/fish/
 	else
-	    cp -r "$srcdir/StratOS-fish-config"/* "$pkgdir/etc/skel/.config/fish/"
+	    cp -r $srcdir/StratOS-fish-config/* $pkgdir/etc/skel/.config/fish/
 	    echo "The configuration files have been installed in /etc/skel/.config/fish."
 	    echo "You may copy the files manually if you wish to overwrite your current fish configuration."
 	fi
@@ -44,5 +44,5 @@ package() {
 }
 
 pkgpostrm() {
-  rm -rf "/etc/skel/.config/fish"
+  rm -rf /etc/skel/.config/fish
 }

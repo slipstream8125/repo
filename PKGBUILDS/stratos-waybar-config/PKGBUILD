@@ -39,18 +39,18 @@ package() {
         read -p "No Waybar configuration found in your home directory. Do you want to install the configuration there? (y/n): " user_input
         if [[ "$user_input" =~ ^[Yy]$ ]]; then
             mkdir -p "$waybar_config_path"
-            cp -r "$srcdir/StratOS-waybar-config"/* "$waybar_config_path/"
+            cp -r $srcdir/StratOS-waybar-config/* $waybar_config_path
             echo "The Waybar configuration has been installed in your home directory."
         fi
     fi
 
     # Also copy the configuration to /etc/skel/.config/waybar for new users
-    cp -r "$srcdir/StratOS-waybar-config"/* "$config_dir/"
+    cp -r $srcdir/StratOS-waybar-config* "$config_dir/"
     echo "The configuration files have been installed in /etc/skel/.config/waybar."
     echo "New users will get the default Waybar configuration in their home directories."
 }
 
 pkgpostrm() {
     # Clean up the configuration directory in /etc/skel when the package is removed
-    rm -rf "/etc/skel/.config/waybar"
+    rm -rf /etc/skel/.config/waybar
 }

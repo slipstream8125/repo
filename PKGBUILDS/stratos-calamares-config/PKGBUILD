@@ -14,10 +14,10 @@ build() {
 }
 
 package() {
-    mkdir -p "$pkgdir/etc/calamares"
-    cp -r "$srcdir"/* "$pkgdir"/etc/calamares/
+    mkdir -p $pkgdir/etc/calamares
+    cp -r $srcdir/* $pkgdir/etc/calamares/
 }
 
 pkgpostrm(){
-    rm -rf "/etc/calamares/"
+    rm -rf /etc/calamares/
 }

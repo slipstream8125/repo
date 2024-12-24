@@ -15,7 +15,7 @@ build() {
 
 package() {
     mkdir -p "$pkgdir/usr/local/bin/"
-    cp -r "$srcdir/StratOS-bin/*" "$pkgdir/usr/local/bin/"
+    cp -r $srcdir/StratOS-bin/* $pkgdir/usr/local/bin/
     echo "The scripts have been installed in /usr/local/bin."
 }
 
