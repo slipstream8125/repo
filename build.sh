@@ -83,113 +83,122 @@ build_and_package() {
     dir="$PWD"
     sudo git config --global init.defaultBranch main
 
-    local packages=(
-        "albert" 
-        "aura-bin"
-        # "aurutils"
-        "bibata-cursor-theme-bin"
-        # "brave-bin"
-        # #"eww"    
-        # "google-chrome"
-        # "gruvbox-plus-icon-theme-git" 
-        # "libadwaita-without-adwaita-git" 
-        # "mkinitcpio-openswap" 
-	"mu" # TODO find a way to not pull in Emacs as a dependency
-        # "nwg-clipman"
-        "nwg-dock-hyprland-bin" 
-        # "octopi"
-        "oh-my-zsh-git"
-        # "pamac-all"
-        "pandoc-bin" 
-        "python-clickgen"
-        # "pyprland"
-        # #"repoctl"
-        # "rua"
-        "swayfx"
-        # "sway-nvidia"
-        "swayosd-git"
-        "ventoy-bin" 
-        "yay-bin"
-        "zen-browser-bin"
-    )
+    # local packages=(
+    #     "albert" 
+    #     "aura-bin"
+    #     # "aurutils"
+    #     "bibata-cursor-theme-bin"
+    #     # "brave-bin"
+    #     # #"eww"    
+    #     # "google-chrome"
+    #     # "gruvbox-plus-icon-theme-git" 
+    #     # "libadwaita-without-adwaita-git" 
+    #     # "mkinitcpio-openswap" 
+	# "mu" # TODO find a way to not pull in Emacs as a dependency
+    #     # "nwg-clipman"
+    #     "nwg-dock-hyprland-bin" 
+    #     # "octopi"
+    #     "oh-my-zsh-git"
+    #     # "pamac-all"
+    #     "pandoc-bin" 
+    #     "python-clickgen"
+    #     # "pyprland"
+    #     # #"repoctl"
+    #     # "rua"
+    #     "swayfx"
+    #     # "sway-nvidia"
+    #     "swayosd-git"
+    #     "ventoy-bin" 
+    #     "yay-bin"
+    #     "zen-browser-bin"
+    # )
 
-    for i in "${packages[@]}"; do
-        clone_and_build_if_needed "$i" "$dir"
-    done
+    # for i in "${packages[@]}"; do
+    #     clone_and_build_if_needed "$i" "$dir"
+    # done
 
-    # # sudo pacman -U $dir/x86_64/ckbcomp-1.227-1-any.pkg.tar.zst --noconfirm
-    # sudo pacman -U $dir/x86_64/repoctl-0.22.2-1-x86_64.pkg.tar.zst --noconfirm
-    cd "$dir"/PKGBUILDS/rockers/
-    sudo chmod -R 777 ../rockers
-    sudo -u builder makepkg -cfs --noconfirm # --sign
-    rm -f **debug**.pkg.tar.zst
-    rm -rf src/ pkg/
-    mv *.pkg.tar.zst "$dir"/x86_64/
-    cd "$dir"/
+    # # # sudo pacman -U $dir/x86_64/ckbcomp-1.227-1-any.pkg.tar.zst --noconfirm
+    # # sudo pacman -U $dir/x86_64/repoctl-0.22.2-1-x86_64.pkg.tar.zst --noconfirm
+    # cd "$dir"/PKGBUILDS/rockers/
+    # sudo chmod -R 777 ../rockers
+    # sudo -u builder makepkg -cfs --noconfirm # --sign
+    # rm -f **debug**.pkg.tar.zst
+    # rm -rf src/ pkg/
+    # mv *.pkg.tar.zst "$dir"/x86_64/
+    # cd "$dir"/
 
-    mkdir -p /tmp/litefm && chmod -R 777 /tmp/litefm
-    cp "$dir"/PKGBUILDS/litefm/PKGBUILD /tmp/litefm
-    cd /tmp/litefm
-    rm -f "$dir"/x86_64/**litefm**.pkg.tar.zst
-    sudo -u builder makepkg -cfs --noconfirm # --sign
-    mv *.pkg.tar.zst "$dir"/x86_64/
-    cd "$dir"/
+    # mkdir -p /tmp/litefm && chmod -R 777 /tmp/litefm
+    # cp "$dir"/PKGBUILDS/litefm/PKGBUILD /tmp/litefm
+    # cd /tmp/litefm
+    # rm -f "$dir"/x86_64/**litefm**.pkg.tar.zst
+    # sudo -u builder makepkg -cfs --noconfirm # --sign
+    # mv *.pkg.tar.zst "$dir"/x86_64/
+    # cd "$dir"/
 
-    mkdir -p /tmp/ckbcomp
-    cp "$dir"/PKGBUILDS/ckbcomp/PKGBUILD /tmp/ckbcomp
-    cd /tmp/ckbcomp
-    sudo chmod -R 777 /tmp/ckbcomp
-    sudo -u builder makepkg -cfs --noconfirm
-    rm -f **debug**.pkg.tar.zst
-    cp *.pkg.tar.zst "$dir"/x86_64/
-    sudo pacman -U *.pkg.tar.zst --noconfirm
-    cd "$dir"
+    # mkdir -p /tmp/ckbcomp
+    # cp "$dir"/PKGBUILDS/ckbcomp/PKGBUILD /tmp/ckbcomp
+    # cd /tmp/ckbcomp
+    # sudo chmod -R 777 /tmp/ckbcomp
+    # sudo -u builder makepkg -cfs --noconfirm
+    # rm -f **debug**.pkg.tar.zst
+    # cp *.pkg.tar.zst "$dir"/x86_64/
+    # sudo pacman -U *.pkg.tar.zst --noconfirm
+    # cd "$dir"
 
-    cd "$dir"/PKGBUILDS/calamares
-    sudo chmod -R 777 "$dir"/PKGBUILDS/calamares
-    sudo -u builder makepkg -cfs --noconfirm # --sign
-    echo "Removing Qt Calamares build..."
-    sudo rm -v **qt5**.pkg.tar.zst
-    sudo rm -rfv *.tar.gz **debug**.pkg.tar.zst calamares/ src/ pkg/
-    rm -fv "$dir"/x86_64/**calamares**.pkg.tar.zst
-    mv -v *.pkg.tar.zst "$dir"/x86_64/
-    cd "$dir"
+    # cd "$dir"/PKGBUILDS/calamares
+    # sudo chmod -R 777 "$dir"/PKGBUILDS/calamares
+    # sudo -u builder makepkg -cfs --noconfirm # --sign
+    # echo "Removing Qt Calamares build..."
+    # sudo rm -v **qt5**.pkg.tar.zst
+    # sudo rm -rfv *.tar.gz **debug**.pkg.tar.zst calamares/ src/ pkg/
+    # rm -fv "$dir"/x86_64/**calamares**.pkg.tar.zst
+    # mv -v *.pkg.tar.zst "$dir"/x86_64/
+    # cd "$dir"
 
-    mkdir -p /tmp/grab
-    cp "$dir"/PKGBUILDS/grab/PKGBUILD /tmp/grab
-    cd /tmp/grab
-    sudo chmod -R 777 /tmp/grab
-    sudo -u builder makepkg -cfs --noconfirm
-    rm -f **debug**.pkg.tar.zst
-    cp *.pkg.tar.zst "$dir"/x86_64/
-    cd "$dir"
+    # mkdir -p /tmp/grab
+    # cp "$dir"/PKGBUILDS/grab/PKGBUILD /tmp/grab
+    # cd /tmp/grab
+    # sudo chmod -R 777 /tmp/grab
+    # sudo -u builder makepkg -cfs --noconfirm
+    # rm -f **debug**.pkg.tar.zst
+    # cp *.pkg.tar.zst "$dir"/x86_64/
+    # cd "$dir"
 
-    mkdir -p /tmp/maneki-neko
-    cp "$dir"/PKGBUILDS/maneki-neko/PKGBUILD /tmp/maneki-neko
-    cd /tmp/maneki-neko
-    sudo chmod -R 777 /tmp/maneki-neko
-    sudo -u builder makepkg -cfs --noconfirm
-    rm -f **debug**.pkg.tar.zst
-    cp *.pkg.tar.zst "$dir"/x86_64/
-    cd "$dir"
+    # mkdir -p /tmp/maneki-neko
+    # cp "$dir"/PKGBUILDS/maneki-neko/PKGBUILD /tmp/maneki-neko
+    # cd /tmp/maneki-neko
+    # sudo chmod -R 777 /tmp/maneki-neko
+    # sudo -u builder makepkg -cfs --noconfirm
+    # rm -f **debug**.pkg.tar.zst
+    # cp *.pkg.tar.zst "$dir"/x86_64/
+    # cd "$dir"
 
-    packages=("stratos-bin" "stratmacs-config" "stratos-calamares-config" "stratos-kitty-config" "stratos-fish-config" "stratos-waybar-config" "stratos-starship-config")
+    packages=(
+        "stratos-bin" 
+        "stratmacs-config" 
+        "stratos-calamares-config" 
+        "stratos-kitty-config" 
+        "stratos-fish-config" 
+        "stratos-waybar-config" 
+        "stratos-starship-config"
+        )
     for package in "${packages[@]}"; do
-	mkdir -p /tmp/$package
-	cp "$dir"/PKGBUILDS/$package/PKGBUILD /tmp/$package
-	cd /tmp/$package
-	sudo chmod -R 777 /tmp/$package
-	sudo -u builder makepkg -cfs --noconfirm
-	rm -f **debug**.pkg.tar.zst
-	cp *.pkg.tar.zst "$dir"/x86_64/
-	cd "$dir"
-	rm -rf /tmp/$package
+        mkdir -p /tmp/$package
+        cp "$dir"/PKGBUILDS/$package/PKGBUILD /tmp/$package
+        cd /tmp/$package
+        sudo chmod -R 777 /tmp/$package
+        sudo -u builder makepkg -cfs --noconfirm
+        rm -f **debug**.pkg.tar.zst
+        cp *.pkg.tar.zst "$dir"/x86_64/
+        cd "$dir"
+        rm -rf /tmp/$package
     done
 
 }
 
 # Initialize and push to GitHub
 initialize_and_push() {
+    exit
     # export URL="$(git config --get remote.origin.url | sed -E 's|.+[:/]([^:/]+)/([^/.]+)(\.git)?|\1/\2|')"
     cd "$dir"
     git config --global --add safe.directory /workspace # unnecessary
@@ -201,7 +210,7 @@ initialize_and_push() {
     sudo git add .
     sudo git commit -am "Update packages"
     export URL=$(git config --get remote.origin.url | sed "s|^https://|https://x-access-token:${GITHUB_TOKEN}@|")
-    sudo git push "$URL" --force
+    # sudo git push "$URL" --force
 }
 
 # Main function

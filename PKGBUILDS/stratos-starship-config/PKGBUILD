@@ -6,7 +6,7 @@ pkgdesc="Starship shell prompt configuration for StratOS"
 arch=('x86_64')
 url="https://github.com/StratOS-Linux/StratOS-starship-config"
 license=('GPL')
-depends=('bash' 'fish') 
+depends=('bash' 'starship') 
 
 build() {
     git clone $url
@@ -14,37 +14,43 @@ build() {
 }
 
 package() {
-    mkdir -p "$pkgdir/etc/skel/.config/fish"
+    mkdir -p $pkgdir/etc/skel/.config/starship
 
-    emacs_config_paths=( "$HOME/.config/fish" )
+    config_paths=( "$HOME/.config/starship" "$HOME/.config/starship.toml")
 
     config_exists=false
-    for config in "${emacs_config_paths[@]}"; do
-	if [ -e "$config" ]; then
-	    config_exists=true
-	    break
-	fi
+    for config in "${config_paths[@]}"; do
+        if [ -e "$config" ]; then
+            config_exists=true
+            break
+        fi
     done  
 
     if [ "$config_exists" = true ]; then
-	cp -r "$srcdir/StratOS-starship-config" "$pkgdir/etc/skel/.config/starship/"
-        cp "$srcdir/StratOS-starship-config/starship.toml" "$pkgdir/etc/skel/.config/starship.toml"
-	echo "The configuration files have been installed in /etc/skel/.config/starship."
-	echo "You may copy the files manually if you wish to overwrite your current starship configuration."
+        cp -r $srcdir/StratOS-starship-config/* $pkgdir/etc/skel/.config/
+        echo "The configuration files have been installed in /etc/skel/.config/starship."
+        echo "You may copy the files manually if you wish to overwrite your current starship configuration."
     else
-	read -p "No fish configuration files found. Do you want to install the StratOS fish configuration in .config/fish? (y/n): " user_input
-	if [[ "$user_input" =~ ^[Yy]$ ]]; then
-	    mkdir -p "$HOME/.config/fish"
-	    cp -r "$srcdir/StratOS-fish-config"/* "$HOME/.config/fish/"
-	else
-            cp -r "$srcdir/StratOS-starship-config" "$pkgdir/etc/skel/.config/starship/"
-            cp "$srcdir/StratOS-starship-config/starship.toml" "$pkgdir/etc/skel/.config/starship.toml"
+        if [ "${FORCE_INSTALL}" = "false" ]; then
+            read -p "No starship configuration files found. Do you want to install the StratOS starship configuration in .config/starship? (y/n): " user_input
+            if [[ $user_input =~ ^[Yy]$ ]]; then
+                mkdir -p $HOME/.config/starship
+                cp -r $srcdir/StratOS-starship-config/* $HOME/.config/
+            else
+                cp -r $srcdir/StratOS-starship-config/* $pkgdir/etc/skel/.config/
+                echo "The configuration files have been installed in /etc/skel/.config."
+                echo "You may copy the files manually if you wish to overwrite your current starship configuration."
+            fi
+        fi
+        
+        if [ "${FORCE_INSTALL}" = "true" ]; then
+            cp -r $srcdir/StratOS-starship-config/* $pkgdir/etc/skel/.config/
             echo "The configuration files have been installed in /etc/skel/.config/starship."
             echo "You may copy the files manually if you wish to overwrite your current starship configuration."
-	fi
+        fi
     fi
 }
 
 pkgpostrm() {
-  rm -rf "/etc/skel/.config/starship*"
+  rm -rf /etc/skel/.config/starship*
 }
