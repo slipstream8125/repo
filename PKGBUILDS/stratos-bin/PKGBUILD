@@ -1,0 +1,25 @@
+# Maintainer: ZeStig <zestig@duck.com>
+pkgname=stratos-bin
+pkgver=1.0
+pkgrel=0
+pkgdesc="StratOS scripts"
+arch=('x86_64')
+url="https://github.com/StratOS-Linux/StratOS-bin"
+license=('GPL')
+depends=('bash') 
+
+build() {
+    git clone $url
+    echo $srcdir
+}
+
+package() {
+    mkdir -p "$pkgdir/usr/local/bin/"
+    cp -r "$srcdir/StratOS-bin/*" "$pkgdir/usr/local/bin/"
+    echo "The scripts have been installed in /usr/local/bin."
+}
+
+pkgpostrm() {
+  rm -rf /usr/local/bin/StratOS*
+  rm -rf /usr/local/bin/{enable-display-manager, choose-mirror, install-bedrock-x86_64.sh, install-using-flatpak, install-using-pacman, install-using-yay, livecd-sound, maneki-logo, skeleton}
+}
