@@ -95,18 +95,18 @@ build_and_package() {
         # "libadwaita-without-adwaita-git" 
         # "mkinitcpio-openswap" 
 	"mu" # TODO find a way to not pull in Emacs as a dependency
-        # "nwg-clipman"
+        "nwg-clipman"
         "nwg-dock-hyprland-bin" 
-        # "octopi"
+        "octopi"
         "oh-my-zsh-git"
-        # "pamac-all"
+        "pamac-all"
         "pandoc-bin" 
         "python-clickgen"
-        # "pyprland"
+        "pyprland"
         # #"repoctl"
-        # "rua"
+        "rua"
         "swayfx"
-        # "sway-nvidia"
+        "sway-nvidia"
         "swayosd-git"
         "ventoy-bin" 
         "yay-bin"
@@ -120,20 +120,20 @@ build_and_package() {
     # # # sudo pacman -U $dir/x86_64/ckbcomp-1.227-1-any.pkg.tar.zst --noconfirm
     # # sudo pacman -U $dir/x86_64/repoctl-0.22.2-1-x86_64.pkg.tar.zst --noconfirm
     # cd "$dir"/PKGBUILDS/rockers/
-    # sudo chmod -R 777 ../rockers
-    # sudo -u builder makepkg -cfs --noconfirm # --sign
-    # rm -f **debug**.pkg.tar.zst
-    # rm -rf src/ pkg/
-    # mv *.pkg.tar.zst "$dir"/x86_64/
-    # cd "$dir"/
+    sudo chmod -R 777 ../rockers
+    sudo -u builder makepkg -cfs --noconfirm # --sign
+    rm -f **debug**.pkg.tar.zst
+    rm -rf src/ pkg/
+    mv *.pkg.tar.zst "$dir"/x86_64/
+    cd "$dir"/
 
-    # mkdir -p /tmp/litefm && chmod -R 777 /tmp/litefm
-    # cp "$dir"/PKGBUILDS/litefm/PKGBUILD /tmp/litefm
-    # cd /tmp/litefm
-    # rm -f "$dir"/x86_64/**litefm**.pkg.tar.zst
-    # sudo -u builder makepkg -cfs --noconfirm # --sign
-    # mv *.pkg.tar.zst "$dir"/x86_64/
-    # cd "$dir"/
+    mkdir -p /tmp/litefm && chmod -R 777 /tmp/litefm
+    cp "$dir"/PKGBUILDS/litefm/PKGBUILD /tmp/litefm
+    cd /tmp/litefm
+    rm -f "$dir"/x86_64/**litefm**.pkg.tar.zst
+    sudo -u builder makepkg -cfs --noconfirm # --sign
+    mv *.pkg.tar.zst "$dir"/x86_64/
+    cd "$dir"/
 
     mkdir -p /tmp/ckbcomp
     cp "$dir"/PKGBUILDS/ckbcomp/PKGBUILD /tmp/ckbcomp
@@ -183,15 +183,15 @@ build_and_package() {
         "stratos-starship-config"
         )
     for package in "${packages[@]}"; do
-        mkdir -p /tmp/$package
-        cp "$dir"/PKGBUILDS/$package/PKGBUILD /tmp/$package
-        cd /tmp/$package
-        sudo chmod -R 777 /tmp/$package
+        mkdir -p /tmp/"$package"
+        cp "$dir"/PKGBUILDS/"$package"/PKGBUILD /tmp/"$package"
+        cd /tmp/"$package"
+        sudo chmod -R 777 /tmp/"$package"
         sudo -u builder makepkg -cfs --noconfirm
         rm -f **debug**.pkg.tar.zst
-        cp *.pkg.tar.zst $dir/x86_64/
-        cd $dir
-        rm -rf /tmp/$package
+        cp *.pkg.tar.zst "$dir"/x86_64/
+        cd "$dir"
+        rm -rf /tmp/"$package"
     done
 
 }
