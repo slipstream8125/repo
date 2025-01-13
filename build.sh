@@ -119,7 +119,7 @@ build_and_package() {
 
     # # # sudo pacman -U $dir/x86_64/ckbcomp-1.227-1-any.pkg.tar.zst --noconfirm
     # # sudo pacman -U $dir/x86_64/repoctl-0.22.2-1-x86_64.pkg.tar.zst --noconfirm
-    # cd "$dir"/PKGBUILDS/rockers/
+    cd "$dir"/PKGBUILDS/rockers/
     sudo chmod -R 777 ../rockers
     sudo -u builder makepkg -cfs --noconfirm # --sign
     rm -f **debug**.pkg.tar.zst
