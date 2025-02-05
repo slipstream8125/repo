@@ -110,7 +110,7 @@ build_and_package() {
         "swayosd-git"
         "ventoy-bin" 
         "yay-bin"
-        "zen-browser-bin"
+        # "zen-browser-bin"
     )
 
     for i in "${packages[@]}"; do
