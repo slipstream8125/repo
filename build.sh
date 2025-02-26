@@ -200,7 +200,7 @@ build_and_package() {
 initialize_and_push() {
     cd "$dir"
     git config --global --add safe.directory /workspace # unnecessary
-    rm x86_64/stratos.{db,files}* -rf
+    rm x86_64/stratos.db* x86_64/stratos.files* -rf
     # repo-remove x86_64/stratos.db.tar.gz
     repo-add -R x86_64/stratos.db.tar.gz x86_64/*.pkg.tar.zst
     sudo git config --global user.name 'github-actions[bot]'
