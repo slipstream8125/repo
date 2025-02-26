@@ -3,7 +3,7 @@
 
 _pkgname="calamares"
 pkgname="$_pkgname-git"
-pkgver=3.3.10.r13.g5fc2b27
+pkgver=3.3.14.r1.ffffffff
 pkgrel=1
 pkgdesc="Distribution-independent installer framework"
 url="https://github.com/calamares/calamares"
@@ -111,7 +111,7 @@ build() {
     dummypythonqt
     initramfs
     initramfscfg
-    interactiveterminal
+    # interactiveterminal
     packagechooser
     packagechooserq
     services-openrc
