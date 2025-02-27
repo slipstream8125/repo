@@ -208,7 +208,7 @@ initialize_and_push() {
     sudo git add .
     sudo git commit -am "Update packages"
     export URL=$(git config --get remote.origin.url | sed "s|^https://|https://x-access-token:${GITHUB_TOKEN}@|")
-    sudo git push "$URL" --force
+    # sudo git push "$URL" --force
 }
 
 # Main function
