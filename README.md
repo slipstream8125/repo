@@ -18,6 +18,8 @@ SigLevel = Optional TrustAll
 Server = https://StratOS-Linux.github.io/repo/x86_64
 ```
 
+You could also run `echo -e "[stratos]\nSigLevel = Optional TrustAll\nServer = https://StratOS-Linux.github.io/repo/x86_64" | sudo tee -a /etc/pacman.conf` to add these lines to the `pacman.conf` file.
+
 ## Building packages:
 - Ensure that you have docker and docker-compose installed.
 - Simply run `docker-compose up` (optionally with the `-d` flag to detach the container).
