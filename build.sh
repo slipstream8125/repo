@@ -135,6 +135,7 @@ build_and_package() {
     mv *.pkg.tar.zst "$dir"/x86_64/
     cd "$dir"/
 
+	sudo pacman -S sdl2-compat --noconfirm
     mkdir -p /tmp/ckbcomp
     cp "$dir"/PKGBUILDS/ckbcomp/PKGBUILD /tmp/ckbcomp
     cd /tmp/ckbcomp
