@@ -106,6 +106,7 @@ build_and_package() {
         # #"repoctl"
         "rua"
         "swayfx"
+		"scenefx"
         "sway-nvidia"
         "swayosd-git"
         "ventoy-bin" 
