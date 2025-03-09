@@ -82,6 +82,13 @@ build_and_package() {
     sudo pacman -S fakeroot --noconfirm
     dir="$PWD"
     sudo git config --global init.defaultBranch main
+	sudo pacman -S scenefx  --noconfirm
+	
+	cd "$dir"/PKGBUILDS/scenefx
+	mkdir -p /tmp/scenefx
+	sudo -u  builder makepkg -si --noconfirm
+	cd "$dir"
+
 
     local packages=(
         "albert" 
@@ -117,6 +124,7 @@ build_and_package() {
     for i in "${packages[@]}"; do
         clone_and_build_if_needed "$i" "$dir"
     done
+
 
     # # # sudo pacman -U $dir/x86_64/ckbcomp-1.227-1-any.pkg.tar.zst --noconfirm
     # # sudo pacman -U $dir/x86_64/repoctl-0.22.2-1-x86_64.pkg.tar.zst --noconfirm
