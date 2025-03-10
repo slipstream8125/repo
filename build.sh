@@ -84,10 +84,7 @@ build_and_package() {
     sudo git config --global init.defaultBranch main
 	sudo pacman -S scenefx  --noconfirm
 	
-	cd "$dir"/PKGBUILDS/scenefx
-	mkdir -p /tmp/scenefx
-	sudo chmod -R 777 /tmp/scenefx
-	sudo -u  builder makepkg -si --noconfirm
+	sudo pacman -U "$dir"/x86_64/scenefx-0.*.pkg.tar.zst
 	cd "$dir"
 
 
