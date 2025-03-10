@@ -86,6 +86,7 @@ build_and_package() {
 	
 	cd "$dir"/PKGBUILDS/scenefx
 	mkdir -p /tmp/scenefx
+	sudo chmod -R 777 /tmp/scenefx
 	sudo -u  builder makepkg -si --noconfirm
 	cd "$dir"
 
