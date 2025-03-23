@@ -82,9 +82,9 @@ build_and_package() {
     sudo pacman -S fakeroot --noconfirm
     dir="$PWD"
     sudo git config --global init.defaultBranch main
-	sudo pacman -S scenefx  --noconfirm
-	
-	sudo pacman -U "$dir"/x86_64/scenefx-0.*.pkg.tar.zst
+	# sudo pacman -S scenefx  --noconfirm
+	# sudo chmod -R 
+	sudo pacman -U "$dir"/x86_64/scenefx-0.*.pkg.tar.zst --noconfirm
 	cd "$dir"
 
 
