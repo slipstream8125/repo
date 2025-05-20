@@ -15,11 +15,11 @@ prepare() {
 
 build() {
   cd "$srcdir/$pkgname-$pkgver"
-  make grab
-  make run
+  make
 }
 
 package() {
   cd "$srcdir/$pkgname-$pkgver"
-  sudo make DESTDIR="$pkgdir/" install
+  install -D -t "$pkgdir"/usr/local/bin/ grab
 }
+
