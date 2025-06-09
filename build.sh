@@ -82,10 +82,10 @@ build_and_package() {
     sudo pacman -S fakeroot --noconfirm
     dir="$PWD"
     sudo git config --global init.defaultBranch main
-	# sudo pacman -S scenefx  --noconfirm
-	# sudo chmod -R 
-	sudo pacman -U "$dir"/x86_64/scenefx-0.*.pkg.tar.zst --noconfirm
-	cd "$dir"
+    # sudo pacman -S scenefx  --noconfirm
+    # sudo chmod -R 
+    sudo pacman -U "$dir"/x86_64/scenefx-0.*.pkg.tar.zst --noconfirm
+    cd "$dir"
 
 
     local packages=(
@@ -111,7 +111,7 @@ build_and_package() {
         # #"repoctl"
         "rua"
         "swayfx"
-		"scenefx"
+	"scenefx"
         "sway-nvidia"
         "swayosd-git"
         "ventoy-bin" 
@@ -142,7 +142,7 @@ build_and_package() {
     mv *.pkg.tar.zst "$dir"/x86_64/
     cd "$dir"/
 
-	sudo pacman -S sdl2-compat --noconfirm
+    sudo pacman -S sdl2-compat --noconfirm
     mkdir -p /tmp/ckbcomp
     cp "$dir"/PKGBUILDS/ckbcomp/PKGBUILD /tmp/ckbcomp
     cd /tmp/ckbcomp
@@ -189,10 +189,14 @@ build_and_package() {
         "stratos-fish-config" 
         "stratos-waybar-config" 
         "stratos-starship-config"
-        )
+        "stratos-btop-config"
+        "stratos-mako-config"
+	"stratos-wallpapers"
+    )
     for package in "${packages[@]}"; do
         mkdir -p /tmp/"$package"
-        cp "$dir"/PKGBUILDS/"$package"/PKGBUILD /tmp/"$package"
+        # cp "$dir"/PKGBUILDS/"$package"/PKGBUILD /tmp/"$package"
+	git clone https://github.com/StratOS-Linux/"$package" /tmp/"$package"
         cd /tmp/"$package"
         sudo chmod -R 777 /tmp/"$package"
         sudo -u builder makepkg -cfs --noconfirm
