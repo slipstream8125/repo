@@ -3,7 +3,7 @@
 
 _pkgname="calamares"
 pkgname="$_pkgname-git"
-pkgver=3.3.14.r1.ffffffff
+pkgver=3.3.13.r1.gbabaddf
 pkgrel=1
 pkgdesc="Distribution-independent installer framework"
 url="https://github.com/calamares/calamares"
@@ -12,7 +12,7 @@ arch=('i686' 'x86_64')
 
 depends=(
   'boost-libs'
-  # 'ckbcomp'
+  'ckbcomp' # AUR
   'hwinfo'
   'kconfig'
   'kcoreaddons'
@@ -50,56 +50,24 @@ backup=(
 
 _pkgsrc="$_pkgname"
 source=(
-  "com.github.calamares.calamares.policy"
-  # "49-nopasswd-calamares.rules"
   "$_pkgsrc"::"git+$url.git"
-  "paru-support.patch"
-  "calamares.desktop"
+  "yay-support.patch"
 )
 sha256sums=(
-  'SKIP'
-  # 'SKIP'
-  'SKIP'
   'SKIP'
   'SKIP'
 )
 
 pkgver() {
   cd "$_pkgsrc"
-
-  local _regex='^set\(CALAMARES_VERSION ([0-9]+\.[0-9]+\.[0-9]+([^0-9].*)?)\)\s*$'
-  local _file='CMakeLists.txt'
-
-  local _line=$(
-    grep -E "$_regex" "$_file" | head -1
-  )
-  local _version=$(
-    printf '%s' "$_line" | sed -E "s@$_regex@\1@;s@alpha@a@;s@beta@b@;s@-@.@"
-  )
-  local _line=$(
-    printf '%s' "$_line" | sed -E 's@\(@\\(@;s@\)@\\)@'
-  )
-  local _commit=$(
-    git log -G "$_line" -1 --pretty=oneline --no-color | sed 's@\ .*$@@'
-  )
-  local _revision=$(
-    git rev-list --count --cherry-pick "$_commit"...HEAD
-  )
-  local _hash=$(
-    git rev-parse --short=7 HEAD
-  )
-
-  printf '%s.r%s.g%s' \
-    "$_version" \
-    "$_revision" \
-    "$_hash"
+  git describe --long --tags --abbrev=7 --exclude='*[a-zA-Z][a-zA-Z]*' \
+    | sed -E 's/^[^0-9]*//;s/([^-]*-g)/r\1/;s/-/./g'
 }
 
 prepare() {
   cd "$_pkgsrc"
-  git apply ../paru-support.patch
+  git apply ../yay-support.patch
 }
-
 
 build() {
   local _skip_modules=(
@@ -111,7 +79,7 @@ build() {
     dummypythonqt
     initramfs
     initramfscfg
-    # interactiveterminal
+    interactiveterminal
     packagechooser
     packagechooserq
     services-openrc
@@ -121,25 +89,20 @@ build() {
     -B build
     -S "$_pkgsrc"
     -G Ninja
-
     -DCMAKE_BUILD_TYPE=Release
-    -DCMAKE_INSTALL_PREFIX="/usr"
+    -DCMAKE_INSTALL_PREFIX='/usr'
     -DCMAKE_INSTALL_LIBDIR='lib'
     -DWITH_QT6=ON
     -DINSTALL_CONFIG=ON
     -DSKIP_MODULES="${_skip_modules[*]}"
-
     -DBUILD_TESTING=OFF
     -Wno-dev
   )
 
   cmake "${_cmake_options[@]}"
   cmake --build build
-  sudo -E install -Dm777 "calamares.desktop" "$pkgdir/usr/share/applications/calamares.desktop"
-  sudo -E install -Dm777 "calamares.desktop" "$pkgdir/etc/xdg/autostart/Calamares.desktop"
-  sudo -E install -Dm777 "com.github.calamares.calamares.policy" "$pkgdir/usr/share/polkit-1/actions/com.github.calamares.calamares.policy"
 }
 
 package() {
-  DESTDIR="$pkgdir" sudo -E cmake --install build
+  DESTDIR="$pkgdir" cmake --install build
 }
