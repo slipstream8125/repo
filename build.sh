@@ -94,7 +94,7 @@ build_and_package() {
         "aura-bin"
         # "aurutils"
         "bibata-cursor-theme-bin"
-		"calamares-git"
+		"calamares"
         # "brave-bin"
         # #"eww"    
         # "google-chrome"
