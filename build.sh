@@ -85,6 +85,7 @@ build_and_package() {
 	# sudo pacman -S scenefx  --noconfirm
 	# sudo chmod -R 
 	sudo pacman -U "$dir"/x86_64/scenefx-0.*.pkg.tar.zst --noconfirm
+	sudo pacman -U "$dir"/x86_64/ckbcomp-1.*.pkg.tar.zst --noconfirm
 	cd "$dir"
 
 
