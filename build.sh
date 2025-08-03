@@ -113,7 +113,7 @@ build_and_package() {
         "swayfx"
 	"scenefx"
         "sway-nvidia"
-        "swayosd-git"
+        # "swayosd-git"
         "ventoy-bin" 
         "yay-bin"
         # "zen-browser-bin"
@@ -183,7 +183,8 @@ build_and_package() {
 
     packages=(
         "stratos-bin" 
-        "stratmacs-config" 
+        # "stratmacs"  # TODO enable this after custom Emacs
+	"stratmacs-config"
         "stratos-calamares-config" 
         "stratos-kitty-config" 
         "stratos-fish-config" 
@@ -203,6 +204,7 @@ build_and_package() {
         rm -f **debug**.pkg.tar.zst
         cp *.pkg.tar.zst "$dir"/x86_64/
         cd "$dir"
+	cp /tmp/"$package"/PKGBUILD "$dir"/PKGBUILDS/"$package"/PKGBUILD
         rm -rf /tmp/"$package"
     done
 

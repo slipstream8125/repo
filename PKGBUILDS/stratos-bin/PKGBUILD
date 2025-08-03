@@ -6,7 +6,7 @@ pkgdesc="StratOS scripts"
 arch=('x86_64')
 url="https://github.com/StratOS-Linux/StratOS-bin"
 license=('GPL')
-depends=('bash') 
+depends=('bash' 'pacman') 
 
 build() {
     git clone $url
@@ -20,6 +20,6 @@ package() {
 }
 
 pkgpostrm() {
-  rm -rf /usr/local/bin/StratOS*
-  rm -rf /usr/local/bin/{enable-display-manager, choose-mirror, install-bedrock-x86_64.sh, install-using-flatpak, install-using-pacman, install-using-yay, livecd-sound, maneki-logo, skeleton}
+    rm -rf /usr/local/bin/StratOS*
+    rm -rf /usr/local/bin/{enable-display-manager, choose-mirror, install-bedrock-x86_64.sh, install-using-flatpak, install-using-pacman, install-using-yay, livecd-sound, maneki-logo, skeleton}
 }
