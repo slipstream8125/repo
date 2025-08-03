@@ -1,25 +1,17 @@
-# Maintainer: ZeStig <zestig@duck.com>
+# Maintainer: @zstg <zestig@duck.com>
 pkgname=stratmacs-config
 pkgver=1.0
-pkgrel=0
-pkgdesc="Emacs distribution bundled with StratOS"
-arch=('x86_64')
-url="https://github.com/StratOS-Linux/Stratmacs"
-license=('GPL')
-depends=('bash') 
-
-build() {
-    git clone $url
-    echo $srcdir
-}
+pkgrel=1
+pkgdesc="Emacs configuration for StratOS"
+arch=('any')
+license=('GPL3')
+depends=('emacs')
+source=('.config')
+md5sums=('SKIP')
 
 package() {
-  mkdir -p $pkgdir/etc/skel/.config/emacs
-	cp -r $srcdir/Stratmacs/* $pkgdir/etc/skel/.config/emacs/
-	echo "The configuration files have been installed in /etc/skel/.config/emacs."
-	echo "You may copy the files manually if you wish to overwrite your current Emacs configuration."
-}
-
-pkgpostrm() {
-  rm -rf /etc/skel/.config/emacs
+    install -d "$pkgdir/etc/skel/.config"
+    cp -r "$srcdir/.config/emacs" "$pkgdir/etc/skel/.config/"
+    echo "Configuration files have been copied to /etc/skel."
+    echo "You may copy these files to ~/.config/ and make any changes you wish."
 }

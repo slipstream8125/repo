@@ -1,25 +1,21 @@
-# Maintainer: ZeStig <zestig@duck.com>
+# Maintainer: @zstg <zestig@duck.com>
 pkgname=stratos-kitty-config
 pkgver=1.0
-pkgrel=0
-pkgdesc="Kitty terminal emulator configuration for StratOS"
-arch=('x86_64')
-url="https://github.com/StratOS-Linux/StratOS-kitty-config"
-license=('GPL')
-depends=('bash' 'kitty') 
-
-build() {
-    git clone $url
-    echo $srcdir
-}
+pkgrel=1
+pkgdesc="Kitty configuration for StratOS"
+arch=('any')
+license=('GPL3')
+depends=(
+    'kitty'
+    'ttf-jetbrains-mono'
+    'ttf-jetbrains-mono-nerd'
+)
+source=('.config')
+md5sums=('SKIP')
 
 package() {
-    mkdir -p $pkgdir/etc/skel/.config/kitty
-    cp -r $srcdir/StratOS-kitty-config/* $pkgdir/etc/skel/.config/kitty/
-    echo "The configuration files have been installed in /etc/skel/.config/kitty."
-    echo "You may copy the files manually if you wish to overwrite your current kitty configuration."
-}
-
-pkgpostrm() {
-  rm -rf /etc/skel/.config/kitty
+    install -d "$pkgdir/etc/skel/.config"
+    cp -r "$srcdir/.config/kitty/" "$pkgdir/etc/skel/.config/"
+    echo "Configuration files have been copied to /etc/skel."
+    echo "You may copy these files to ~/.config/ and make any changes you wish."
 }

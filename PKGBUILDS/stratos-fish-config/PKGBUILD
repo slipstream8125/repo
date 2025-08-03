@@ -1,24 +1,20 @@
-# Maintainer: ZeStig <zestig@duck.com>
+# Maintainer: @zstg <zestig@duck.com>
 pkgname=stratos-fish-config
 pkgver=1.0
-pkgrel=0
-pkgdesc="Fish shell configuration for StratOS"
-arch=('x86_64')
-url="https://github.com/StratOS-Linux/StratOS-fish-config"
-license=('GPL')
-depends=('bash' 'fish') 
-
-build() {
-    git clone $url
-    echo $srcdir
-}
+pkgrel=1
+pkgdesc="Fish configuration for StratOS"
+arch=('any')
+license=('GPL3')
+depends=(
+    'fish'
+    'starship'
+)
+source=('.config')
+md5sums=('SKIP')
 
 package() {
-    mkdir -p $pkgdir/etc/skel/.config/fish
-    cp -r $srcdir/StratOS-fish-config/* $pkgdir/etc/skel/.config/
-    echo "The configuration files have been installed in /etc/skel/.config/fish."
-}
-
-pkgpostrm() {
-  rm -rf /etc/skel/.config/fish
+    install -d "$pkgdir/etc/skel/.config"
+    cp -r "$srcdir/.config/fish/" "$pkgdir/etc/skel/.config/"
+    echo "Configuration files have been copied to /etc/skel."
+    echo "You may copy these files to ~/.config/ and make any changes you wish."
 }
