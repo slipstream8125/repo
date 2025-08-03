@@ -1,23 +1,23 @@
 # Maintainer: ZeStig <zestig@duck.com>
 pkgname=stratos-calamares-config
 pkgver=1.0
-pkgrel=0
+pkgrel=1
 pkgdesc="StratOS Calamares config"
 arch=('x86_64')
 url="https://github.com/StratOS-Linux/StratOS-calamares-config"
 license=('GPL')
-depends=('bash') 
+depends=('bash')
+source=()
+install=stratos-calamares-config.install
 
-build() {
-    git clone $url
-    echo $srcdir
+prepare() {
+    cp -r "$startdir/branding" "$srcdir/"
+    cp -r "$startdir/modules" "$srcdir/"
+    install -m 644 "$startdir/settings.conf" "$srcdir/"
 }
-
 package() {
-    mkdir -p $pkgdir/etc/calamares
-    cp -r $srcdir/* $pkgdir/etc/calamares/
-}
-
-pkgpostrm(){
-    rm -rf /etc/calamares/
+    install -d "$pkgdir/etc/calamares"
+    cp -r "$srcdir/branding" "$pkgdir/etc/calamares/"
+    cp -r "$srcdir/modules" "$pkgdir/etc/calamares/"
+    install -m 644 "$srcdir/settings.conf" "$pkgdir/etc/calamares/"
 }
