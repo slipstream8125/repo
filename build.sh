@@ -183,7 +183,7 @@ build_and_package() {
 
     packages=(
         "stratos-bin" 
-        # "stratmacs"  # TODO enable this after custom Emacs
+        "stratmacs"
 	"stratmacs-config"
         "stratos-calamares-config" 
         "stratos-kitty-config" 
