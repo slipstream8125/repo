@@ -8,6 +8,9 @@
 
 - Meant for use in [StratOS](https://github.com/StratOS-Linux/gnome-iso) (An Arch-based meta-distro developed by the StratOS Team)
 
+## NOTE
+We've started building packages on a dedicated server. This repo may become out-of-date, but your packages **will not**. StratOS packages continue to receive updates, but this repo may be archived. Once again, **packages will continue to receive updates**.
+
 ## Installation
 
 - To add this repo to your Arch distribution, open `/etc/pacman.conf` and add this at the end :
