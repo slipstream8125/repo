@@ -21,7 +21,7 @@ SigLevel = Optional TrustAll
 Server = https://repo.stratos-linux.org/
 ```
 
-You could also run `echo -e "[stratos]\nSigLevel = Optional TrustAll\nServer = https://repo.stratos-linux.org/" | sudo tee -a /etc/pacman.conf` to add these lines to the `pacman.conf` file.
+You could also run `echo -e "[stratos]\nSigLevel = Optional TrustAll\nServer = https://repo.stratos-linux.org/" | sudo tee -a /etc/pacman.conf >/dev/null` to add these lines to the `pacman.conf` file.
 
 ## Building packages:
 - Ensure that you have docker and docker-compose installed.
