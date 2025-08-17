@@ -18,10 +18,10 @@ We've started building packages on a dedicated server. This repo may become out-
 ```
 [stratos]
 SigLevel = Optional TrustAll
-Server = https://repo.stratos-linux.org/x86_64
+Server = https://repo.stratos-linux.org/
 ```
 
-You could also run `echo -e "[stratos]\nSigLevel = Optional TrustAll\nServer = https://repo.stratos-linux.org/x86_64" | sudo tee -a /etc/pacman.conf` to add these lines to the `pacman.conf` file.
+You could also run `echo -e "[stratos]\nSigLevel = Optional TrustAll\nServer = https://repo.stratos-linux.org/" | sudo tee -a /etc/pacman.conf` to add these lines to the `pacman.conf` file.
 
 ## Building packages:
 - Ensure that you have docker and docker-compose installed.
