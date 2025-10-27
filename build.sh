@@ -194,11 +194,12 @@ build_and_package() {
     packages=(
         "stratos-bin" 
         "stratmacs"
-	"stratmacs-config"
+		"stratmacs-config"
         "stratos-calamares-config"
 		"stratos-calamares-config-next"
         "stratos-kitty-config" 
         "stratos-fish-config" 
+		"stratos-fonts"
         "stratos-waybar-hyprland-config" 
 		"stratos-waybar-niri-config"
         "stratos-starship-hyprland-config"
@@ -208,7 +209,8 @@ build_and_package() {
         "stratos-mako-config"
 		"stratos-rofi-config"
 		"stratos-grub"
-	"stratos-wallpapers"
+		"stratos-wallpapers"
+		"tokyonight-gtk-theme-git"
     )
     for package in "${packages[@]}"; do
         mkdir -p /tmp/"$package"
@@ -233,12 +235,12 @@ initialize_and_push() {
     rm x86_64/stratos.db* x86_64/stratos.files* -rf
     # repo-remove x86_64/stratos.db.tar.gz
     repo-add -R x86_64/stratos.db.tar.gz x86_64/*.pkg.tar.zst
-    sudo git config --global user.name 'github-actions[bot]'
-    sudo git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-    sudo git add .
-    sudo git commit -am "Update packages"
-    export URL=$(git config --get remote.origin.url | sed "s|^https://|https://x-access-token:${GITHUB_TOKEN}@|")
-    sudo git push "$URL" --force
+    # sudo git config --global user.name 'github-actions[bot]'
+    # sudo git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+    # sudo git add .
+    # sudo git commit -am "Update packages"
+    # export URL=$(git config --get remote.origin.url | sed "s|^https://|https://x-access-token:${GITHUB_TOKEN}@|")
+    # sudo git push "$URL" --force
 }
 
 # Main function
