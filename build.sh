@@ -104,6 +104,7 @@ build_and_package() {
 		"gnome-shell-extension-dash-to-dock"
 		"gnome-shell-extension-forge-git"
 		"gnome-shell-extension-space-bar-git"
+		"heroic-games-launcher-bin"
         # "libadwaita-without-adwaita-git" 
         # "mkinitcpio-openswap" 
 	"mu" # TODO find a way to not pull in Emacs as a dependency
@@ -116,6 +117,7 @@ build_and_package() {
         "python-clickgen"
         "pyprland"
 		"paru-bin"
+		"protonup-qt"
         # #"repoctl"
         "rua"
         "swayfx-git"
